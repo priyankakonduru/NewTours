@@ -1,0 +1,66 @@
+package com.RadioButton;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class EchoEcho_RadioButton 
+{
+	WebDriver driver=null;
+	String url="http://www.echoecho.com/htmlforms10.htm";
+		
+	@BeforeTest
+	public void setup()
+	{
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\hp\\Desktop\\New folder\\eclipse-workspace\\SeleniumWebDriver\\DriverFiles\\chromedriver.exe");
+		driver=new ChromeDriver();
+		driver.get(url);
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
+	
+	@Test
+	public void group1_RadioButtonTesting()
+	{
+		///html/body/div[2]/table[9]/tbody/tr/td[4]/table/tbody/tr/td/div/span/form/table[3]/tbody/tr/td
+		//<input type="radio" name="group1" value="Milk">
+		//<input type="radio" name="group1" value="Butter" checked="">
+		//<input type="radio" name="group1" value="Cheese">
+		WebElement radiobutton_block=driver.findElement(By.xpath("/html/body/div[2]/table[9]/tbody/tr/td[4]/table/tbody/tr/td/div/span/form/table[3]/tbody/tr/td"));
+		List<WebElement>group1_radiobutton=radiobutton_block.findElements(By.name("group1"));
+		int group1_radiobuttoncount=group1_radiobutton.size();
+		System.out.println("The count of radio buttons are:"+group1_radiobuttoncount);
+		for(int i=0;i<group1_radiobuttoncount;i++)
+		{
+			//String radiobuttonname=group1_radiobutton.get(i).getAttribute("value");
+			//System.out.println(radiobuttonname);
+			group1_radiobutton.get(i).click();
+			for(int k=0;k<group1_radiobuttoncount;k++)
+			{
+				System.out.println(group1_radiobutton.get(k).getAttribute("value")+ " - " +group1_radiobutton.get(k).getAttribute("checked"));
+				}
+					
+		}
+	}
+		
+		@AfterTest
+		public void teardown()
+		{
+			driver.close();
+		}
+		
+		
+	}	
+		
+		
+		
+	}

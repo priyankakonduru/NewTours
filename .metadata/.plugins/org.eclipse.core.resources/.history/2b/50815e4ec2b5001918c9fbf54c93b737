@@ -1,0 +1,51 @@
+package com.NewTours1;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class LogInPage
+{
+	@FindBy(linkText="SIGN-ON")
+	WebElement signOn;
+	
+	@FindBy(linkText="REGISTER")
+	WebElement register;
+	
+	@FindBy(linkText="SUPPORT")
+	WebElement support;
+	
+	@FindBy(name="userName")                                      //<a href="mercurysignon.php">SIGN-ON</a>
+	WebElement uName;											//<a href="mercuryregister.php">REGISTER</a>
+																	//<a href="mercuryunderconst.php">SUPPORT</a>
+	@FindBy(name="password")										//<input type="text" name="userName" size="10">
+	WebElement pwd;
+																	//<input type="password" name="password" size="10">
+	@FindBy(name="login")		//<input type="image" name="login" value="Login" src="/images/btn_signin.gif" width="58" height="17" alt="Sign-In" border="0">
+	WebElement signIn;
+
+																
+	
+	public void SignOn()
+	{
+		signOn.click();
+	}
+	
+	public void Register()
+	{
+		register.click();
+	}
+	
+	public void Support()
+	{
+		support.click();
+	}
+	
+	public void LogIn(String uname,String Pwd)
+	{
+	uName.sendKeys(uname);
+	pwd.sendKeys(Pwd);
+	signIn.click();
+	}
+		}
+
+

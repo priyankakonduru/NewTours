@@ -1,0 +1,116 @@
+package com.TestNG_Test;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.Test;
+
+public class MultipleSetsOfData_OrangeHRM extends BaseTest1
+{
+
+	@Test(priority=1)
+	public void LogIn()
+	{
+	    //<input name="txtUsername" id="txtUsername" type="text">
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		//<input name="txtPassword" id="txtPassword" autocomplete="off" type="password">
+		driver.findElement(By.id("txtPassword")).sendKeys("admin123");
+		//<input type="submit" name="Submit" class="button" id="btnLogin" value="LOGIN">
+		driver.findElement(By.id("btnLogin")).click();
+		System.out.println("LogIn of OrangeHRM Application");
+	}
+	
+	@Test(priority=2)
+	public void AddEmployee() throws IOException, InterruptedException
+	{
+		//<a href="/index.php/pim/viewPimModule" id="menu_pim_viewPimModule" class="firstLevelMenu"><b>PIM</b></a>
+		WebElement PIM_Element=driver.findElement(By.id("menu_pim_viewPimModule"));
+		Actions act=new Actions(driver);
+		act.moveToElement(PIM_Element).perform();
+		
+		//<a href="/index.php/pim/addEmployee" id="menu_pim_addEmployee">Add Employee</a>
+		driver.findElement(By.id("menu_pim_addEmployee")).click();
+		
+		FileInputStream file=new FileInputStream("C:\\Users\\hp\\Desktop\\New folder\\eclipse-workspace\\SeleniumWebDriver\\src\\com\\TestNG_Test\\WorkBook 10.xlsx");
+		XSSFWorkbook workbook=new XSSFWorkbook(file);
+		XSSFSheet sheet= workbook.getSheet("sheet1");
+		int rowcount=sheet.getLastRowNum();
+		for(int i=1;i<rowcount;i++)
+		{
+			Row row=sheet.getRow(i);
+			
+			//<input class="formInputText" maxlength="30" type="text" name="firstName" id="firstName">
+			driver.findElement(By.id("firstName")).sendKeys(row.getCell(0).getStringCellValue());
+			
+			//<input class="formInputText" maxlength="30" type="text" name="middleName" id="middleName">
+			driver.findElement(By.id("middleName")).sendKeys(row.getCell(1).getStringCellValue());
+			
+			//<input class="formInputText" maxlength="30" type="text" name="lastName" id="lastName">
+			driver.findElement(By.id("lastName")).sendKeys(row.getCell(2).getStringCellValue());
+			
+			//<input class="formInputText" maxlength="10" type="text" name="employeeId" value="0218" id="employeeId">
+			//driver.findElement(By.id("employeeId")).clear();
+			//driver.findElement(By.id("employeeId")).sendKeys(row.getCell(3).getStringCellValue());
+			
+			Thread.sleep(5000);
+			
+			//<input type="checkbox" name="chkLogin" value="1" id="chkLogin">
+			//Create Login Details
+			driver.findElement(By.id("chkLogin")).click();
+			
+			//<input class="formInputText" maxlength="40" type="text" name="user_name" id="user_name">
+			driver.findElement(By.id("user_name")).sendKeys(row.getCell(4).getStringCellValue());
+			
+			//<input class="formInputText passwordRequired" maxlength="64" autocomplete="off" type="password" name="user_password" id="user_password">
+			driver.findElement(By.id("user_password")).sendKeys(row.getCell(5).getStringCellValue());
+			
+			//<input class="formInputText passwordRequired" maxlength="64" autocomplete="off" type="password" name="re_password" id="re_password">
+			driver.findElement(By.id("re_password")).sendKeys(row.getCell(6).getStringCellValue());
+			
+			//<select class="formInputText" name="status" id="status">
+			driver.findElement(By.id("status")).click();
+			
+			//<input type="button" class="" id="btnSave" value="Save">
+			driver.findElement(By.id("btnSave")).click();
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+}

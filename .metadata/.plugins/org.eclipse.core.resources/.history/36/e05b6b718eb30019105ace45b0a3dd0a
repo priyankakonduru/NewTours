@@ -1,0 +1,26 @@
+package com.TestNG_Test;
+
+import org.openqa.selenium.By;
+import org.testng.annotations.Test;
+
+public class MultipleSetsOfData_OrangeHRM extends BaseTest1
+{
+
+	@Test(priority=1)
+	public void LogIn()
+	{
+	    //<input name="txtUsername" id="txtUsername" type="text">
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		//<input name="txtPassword" id="txtPassword" autocomplete="off" type="password">
+		driver.findElement(By.id("txtPassword")).sendKeys("admin123");
+		//<input type="submit" name="Submit" class="button" id="btnLogin" value="LOGIN">
+		driver.findElement(By.id("btnLogin")).click();
+		System.out.println("LogIn of OrangeHRM Application");
+	}
+	
+	@Test(priority=2)
+	public void AddEmployee()
+	{
+		
+	}
+}

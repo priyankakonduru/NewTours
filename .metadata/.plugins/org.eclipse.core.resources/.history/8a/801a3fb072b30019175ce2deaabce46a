@@ -1,0 +1,93 @@
+package com.TestNG_NewTours;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.Test;
+
+public class Registration_NewTours extends BaseTest
+{
+	@Test(priority=1)
+	public void Register()
+	{
+		//<a href="mercuryregister.php?osCsid=d0c5292c4add16c30cacbd702f6a6988">REGISTER</a>
+		WebElement register=driver.findElement(By.linkText("REGISTER"));
+		register.click();		
+	}
+	
+	@Test(priority=2)
+	public void UserRegistration() throws IOException
+	{
+		FileInputStream file=new FileInputStream("./SeleniumWebDriver/src/com/TestNG_NewTours/WorkBook9.xlsx");
+		XSSFWorkbook workbook=new XSSFWorkbook(file);
+		XSSFSheet sheet=workbook.getSheet("sheet1");
+		int rowcount=sheet.getLastRowNum();
+		for(int i=1;i<rowcount;i++)
+		{
+			Row row=sheet.getRow(i);
+			//<input maxlength="60" name="firstName" size="20">
+			driver.findElement(By.name("firstName")).sendKeys(row.getCell(0).getStringCellValue());
+			
+			//<input maxlength="60" name="lastName" size="20">
+			driver.findElement(By.name("lastName")).sendKeys(row.getCell(1).getStringCellValue());
+			
+			//<input maxlength="20" name="phone" size="15">
+			double phone =row.getCell(2).getNumericCellValue();
+			long phoneno=(long)phone;
+			String phonenum=Long.toString(phoneno);
+			driver.findElement(By.name("phone")).sendKeys(phonenum);
+			
+			//<input name="userName" id="userName" size="35" maxlength="64">
+			driver.findElement(By.name("userName")).sendKeys(row.getCell(3).getStringCellValue());
+			
+			//<input maxlength="60" name="address1" size="40">
+			driver.findElement(By.name("address1")).sendKeys(row.getCell(4).getStringCellValue());
+			
+			//<input maxlength="60" name="city" size="15">
+			driver.findElement(By.name("city")).sendKeys(row.getCell(5).getStringCellValue());
+			
+			//<input maxlength="40" name="state">
+			driver.findElement(By.name("state")).sendKeys(row.getCell(6).getStringCellValue());
+			
+			//<input maxlength="20" name="postalCode" size="15">
+			double postal=row.getCell(7).getNumericCellValue();
+			long postalno=(long)postal;
+			String postalcode=Long.toString(postalno);
+			driver.findElement(By.name("postalCode")).sendKeys(postalcode);
+			
+			//name="country"
+			driver.findElement(By.name("country")).sendKeys(row.getCell(8).getStringCellValue());
+			
+			//<input name="email" id="email" size="20" maxlength="60">
+			driver.findElement(By.name("email")).sendKeys(row.getCell(9).getStringCellValue());
+			driver.findElement(By.name("lastName")).sendKeys(row.getCell(1).getStringCellValue());
+			driver.findElement(By.name("lastName")).sendKeys(row.getCell(1).getStringCellValue());
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+}
